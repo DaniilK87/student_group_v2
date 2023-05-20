@@ -1,0 +1,29 @@
+package com.koshkarov.student_group.controller;
+
+import com.koshkarov.student_group.dto.StudentResponseDto;
+import com.koshkarov.student_group.service.StudentService;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api")
+@AllArgsConstructor
+@Data
+public class StudentController {
+
+    private StudentService studentService;
+
+    @DeleteMapping("/groups/students/{id}")
+    public String deleteStudent(@PathVariable int id){
+        studentService.deleteStudent(id);
+        return "Student with ID = " + id + "delete";
+    }
+
+    @GetMapping("/groups/students")
+    private List<StudentResponseDto> getAllStudent() {
+        return studentService.getAllStudent();
+    }
+}

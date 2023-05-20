@@ -1,14 +1,18 @@
 package com.koshkarov.student_group.service;
 
-import com.koshkarov.student_group.entity.Student;
+
+
+import com.koshkarov.student_group.dto.StudentResponseDto;
+
 
 import java.util.List;
 
 public interface StudentService {
 
-    public List<Student> getAllStudent();
 
-    public void saveStudent(Student student);
+    public String deleteStudent(int id);
 
-    public void deleteStudent(int id);
+    List<StudentResponseDto> getAllStudent();
+
+
 }

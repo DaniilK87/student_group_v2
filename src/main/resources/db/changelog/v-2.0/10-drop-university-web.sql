@@ -1,0 +1,1 @@
+alter table university drop column web

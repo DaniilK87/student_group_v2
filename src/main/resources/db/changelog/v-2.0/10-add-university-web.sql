@@ -1,0 +1,1 @@
+alter table university add column web varchar(100)
