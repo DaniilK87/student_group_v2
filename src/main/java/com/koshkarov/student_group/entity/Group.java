@@ -1,15 +1,18 @@
 package com.koshkarov.student_group.entity;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+import lombok.Data;
+import java.util.List;
 
 @Entity
 @Table(name = "groups")
+@Data
 public class Group {
 
-    @Column(name = "group_id")
-    @GeneratedValue
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private int id;
+    private Integer id;
 
     @Column(name = "group_number")
     private String groupNumber;
@@ -17,36 +20,7 @@ public class Group {
     @Column(name = "student_count")
     private int studentCount;
 
-    public Group() {
-    }
-
-    public Group(int id, String groupNumber, int studentCount) {
-        this.id = id;
-        this.groupNumber = groupNumber;
-        this.studentCount = studentCount;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getGroupNumber() {
-        return groupNumber;
-    }
-
-    public void setGroupNumber(String groupNumber) {
-        this.groupNumber = groupNumber;
-    }
-
-    public int getStudentCount() {
-        return studentCount;
-    }
-
-    public void setStudentCount(int studentCount) {
-        this.studentCount = studentCount;
-    }
+    @OneToMany(cascade = {CascadeType.REFRESH,CascadeType.MERGE,
+            CascadeType.PERSIST}, mappedBy = "group", fetch = FetchType.LAZY)
+    private List<Student> students;
 }
