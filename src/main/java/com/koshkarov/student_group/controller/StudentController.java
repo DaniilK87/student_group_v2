@@ -26,4 +26,9 @@ public class StudentController {
     private List<StudentResponseDto> getAllStudent() {
         return studentService.getAllStudent();
     }
+
+    @GetMapping("/groups/students/{name}")
+    public List<StudentResponseDto> getStudentByName(@PathVariable String name){
+        return studentService.getStudentByName(name);
+    }
 }

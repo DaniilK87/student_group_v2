@@ -34,6 +34,20 @@ public class StudentServiceImpl implements StudentService {
         return collect;
     }
 
+    @Override
+    public List<StudentResponseDto> getStudentByName(String name) {
+        List<Student> students = studentRepository.getStudentByStudentFIOContaining(name);
+        List<StudentResponseDto> collect = students.stream()
+                .map(student -> {
+                    StudentResponseDto studentResponseDto = new StudentResponseDto();
+                    studentResponseDto.setId(student.getId());
+                    studentResponseDto.setStudentPS(student.getStudentFIO());
+                    studentResponseDto.setAcceptDate(student.getAcceptDate());
+                    return studentResponseDto;
+                }).collect(Collectors.toList());
+        return collect;
+    }
+
 
     @Override
     public String deleteStudent(int id) {

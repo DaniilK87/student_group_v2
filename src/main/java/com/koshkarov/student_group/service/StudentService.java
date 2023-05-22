@@ -14,5 +14,5 @@ public interface StudentService {
 
     List<StudentResponseDto> getAllStudent();
 
-
+    List<StudentResponseDto> getStudentByName(String name);
 }
