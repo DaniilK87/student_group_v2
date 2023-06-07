@@ -66,19 +66,21 @@ public class GroupServiceImpl implements GroupService{
         studentRepository.save(student);
     }
 
-//    @Override
-//    public void editGroup(EditGroupRequestDto editGroupRequestDto, int groupId) {
-//
-//        Group id = groupRepository.getReferenceById(groupId);
-//        Group group = groupRepository.findById(id.getId())
-//                .orElseThrow(() -> new IllegalStateException("group has not been founded"));
-//
-//        group.setId(editGroupRequestDto.getGroupId());
-//        group.setStudents(editGroupRequestDto.getStudentList());
-//
-//        groupRepository.save(group);
-//    }
 
+    @Override
+    public void editGroup(StudentRequestDto studentRequestDto, int groupId) {
+
+        List<Student> getList = studentRepository.getStudentsByGroup_Id(groupId);
+
+        Student student = getList.stream().findFirst()
+                .orElseThrow(() -> new IllegalStateException("student has not been founded"));
+
+        student.setId(studentRequestDto.getId());
+        student.setAcceptDate(studentRequestDto.getAcceptDate());
+        student.setStudentFIO(studentRequestDto.getStudentFIO());
+
+        studentRepository.save(student);
+    }
 
     @Override
     public void deleteGroup(int groupId) {

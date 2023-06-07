@@ -31,4 +31,9 @@ public class StudentController {
     public List<StudentResponseDto> getStudentByName(@PathVariable String name){
         return studentService.getStudentByName(name);
     }
+
+    @GetMapping("/groups/allStudents/{groupId}")
+    public List<StudentResponseDto> getAllStudentsByGroup(@PathVariable int groupId) {
+        return studentService.getAllStudentsByGroup(groupId);
+    }
 }

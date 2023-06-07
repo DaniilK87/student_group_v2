@@ -48,6 +48,20 @@ public class StudentServiceImpl implements StudentService {
         return collect;
     }
 
+    @Override
+    public List<StudentResponseDto> getAllStudentsByGroup(int groupId) {
+        List<Student> students = studentRepository.getStudentsByGroup_Id(groupId);
+        List<StudentResponseDto> collect = students.stream()
+                .map(student -> {
+                    StudentResponseDto studentResponseDto = new StudentResponseDto();
+                    studentResponseDto.setId(student.getId());
+                    studentResponseDto.setStudentPS(student.getStudentFIO());
+                    studentResponseDto.setAcceptDate(student.getAcceptDate());
+                    return studentResponseDto;
+                }).collect(Collectors.toList());
+        return collect;
+    }
+
 
     @Override
     public String deleteStudent(int id) {

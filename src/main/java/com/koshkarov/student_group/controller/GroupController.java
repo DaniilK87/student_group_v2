@@ -1,9 +1,7 @@
 package com.koshkarov.student_group.controller;
 
 
-import com.koshkarov.student_group.dto.AddGroupRequestDto;
-import com.koshkarov.student_group.dto.AddStudentRequestDto;
-import com.koshkarov.student_group.dto.GroupResponseDto;
+import com.koshkarov.student_group.dto.*;
 import com.koshkarov.student_group.service.GroupService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -37,11 +35,10 @@ public class GroupController {
     }
 
 
-//    @PutMapping("/groups/{groupId}")
-//    public void editGroup(@RequestBody EditGroupRequestDto editGroupRequestDto,
-//                          @PathVariable int groupId) {
-//        groupService.editGroup(editGroupRequestDto, groupId);
-//    }
+    @PutMapping("/groups/{groupId}")
+    public void editGroup(@RequestBody StudentRequestDto studentRequestDto, @PathVariable int groupId) {
+       groupService.editGroup(studentRequestDto, groupId);
+    }
 
     @DeleteMapping("/groups/{groupId}")
     private void deleteGroup(@PathVariable int groupId) {

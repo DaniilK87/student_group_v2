@@ -1,10 +1,8 @@
 package com.koshkarov.student_group.service;
 
 import com.koshkarov.student_group.dto.*;
-import com.koshkarov.student_group.entity.Group;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface GroupService {
 
@@ -19,5 +17,5 @@ public interface GroupService {
 
     void addStudent(AddStudentRequestDto addStudentRequestDto, int groupId);
 
-//    void editGroup(EditGroupRequestDto editGroupRequestDto, int groupId);
+    void editGroup (StudentRequestDto studentRequestDto, int groupId);
 }
