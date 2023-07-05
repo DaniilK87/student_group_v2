@@ -3,6 +3,7 @@ package com.koshkarov.student_group.service;
 import com.koshkarov.student_group.dao.GroupRepository;
 import com.koshkarov.student_group.dao.StudentRepository;
 import com.koshkarov.student_group.dto.GroupResponseDto;
+import com.koshkarov.student_group.dto.StudentRequestDto;
 import com.koshkarov.student_group.entity.Group;
 import com.koshkarov.student_group.entity.Student;
 import org.junit.jupiter.api.*;
@@ -11,11 +12,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.stubbing.OngoingStubbing;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -35,16 +35,10 @@ class GroupServiceImplTest {
 
     @Test
     void returnAllGroup()  {
-        List<Group> groupList = getGroup().stream().map(
-                groupResponseDto -> {
-                    Group group = new Group();
-                    group.setId(groupResponseDto.getId());
-                    group.setGroupNumber(groupResponseDto.getGroupNumber());
-                    group.setStudentCount(groupResponseDto.getStudentCount());
-                    return group;
-                }).collect(Collectors.toList());
+        List<Group> groupList = new ArrayList<>();
+        groupList.add(Mockito.mock(Group.class));
+        groupList.add(Mockito.mock(Group.class));
 
-        groupService = Mockito.mock(GroupServiceImpl.class);
         when(groupRepository.findAll()).thenReturn(groupList);
         List<GroupResponseDto> groups = groupService.getAllGroup();
 
@@ -73,6 +67,14 @@ class GroupServiceImplTest {
 
     @Test
     void editGroup() {
+        List<Student> students = new ArrayList<>();
+        students.add(Mockito.mock(Student.class));
+
+        int id = students.get(0).getId();
+        Student student = students.get(id);
+
+        studentRepository.save(student);
+        assertNotNull(student);
     }
 
     @Test
@@ -84,14 +86,10 @@ class GroupServiceImplTest {
 
     @Test
     void getGroupById() {
-
-    }
-
-    List<GroupResponseDto> getGroup() {
-        List<GroupResponseDto> listGroup = new ArrayList<>();
-        listGroup.add(new GroupResponseDto(1,"Б101",7));
-        listGroup.add(new GroupResponseDto(2,"Б102",8));
-        return listGroup;
+        GroupResponseDto groupResponseDto = Mockito.mock(GroupResponseDto.class);
+        groupResponseDto.setId(1);
+        Optional<Group> group = groupRepository.findById(groupResponseDto.getId());
+        assertNotNull(group);
     }
 
 }
