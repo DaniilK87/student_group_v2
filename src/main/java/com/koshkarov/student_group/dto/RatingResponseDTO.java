@@ -4,13 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddUniversityDto {
-
-    private String country;
-    private String name;
-    private String web;
+public class RatingResponseDTO {
+    private Integer id;
+    private Integer rating;
 }

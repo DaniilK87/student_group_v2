@@ -1,0 +1,35 @@
+version: '3.0'
+
+services:
+  student-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: 'student-app'
+    ports:
+      - '8088:8088'
+    depends_on:
+      - myPostgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://myPostgres:5432/test
+  myPostgres:
+    image: postgres
+    build:
+      context: ./
+      dockerfile: Dockerfile.postgres
+    container_name: 'db-student-app'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1987
+      POSTGRES_DB: test
+      POSTGRES_HOST: myPostgres
+  pgAdmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: mail@mail.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - '5050:80'
+
+

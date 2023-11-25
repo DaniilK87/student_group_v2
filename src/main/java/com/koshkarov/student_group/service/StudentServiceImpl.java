@@ -1,7 +1,9 @@
 package com.koshkarov.student_group.service;
 
-import com.koshkarov.student_group.dao.GroupRepository;
-import com.koshkarov.student_group.dao.StudentRepository;
+import com.koshkarov.student_group.repo.GroupRepository;
+import com.koshkarov.student_group.repo.StudentRepository;
+import com.koshkarov.student_group.dto.GrantsResponseDto;
+import com.koshkarov.student_group.dto.RatingResponseDTO;
 import com.koshkarov.student_group.dto.StudentResponseDto;
 import com.koshkarov.student_group.entity.Group;
 import com.koshkarov.student_group.entity.Student;
@@ -19,6 +21,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     private GroupRepository groupRepository;
+
 
     @Override
     public List<StudentResponseDto> getAllStudent() {
@@ -60,6 +63,27 @@ public class StudentServiceImpl implements StudentService {
                     return studentResponseDto;
                 }).collect(Collectors.toList());
         return collect;
+    }
+
+    @Override
+    public RatingResponseDTO getRating(int id) {
+        Student student = studentRepository.getReferenceById(id);
+        RatingResponseDTO ratingResponseDTO = new RatingResponseDTO();
+        ratingResponseDTO.setId(student.getId());
+        ratingResponseDTO.setRating(student.getRating());
+        return ratingResponseDTO;
+    }
+
+    @Override
+    public void getMoney(GrantsResponseDto grantsResponseDto, int id) {
+        Student student = studentRepository.getReferenceById(id);
+        if (student.getGrant() == null) {
+            student.setGrant(grantsResponseDto.getGrant());
+            studentRepository.save(student);
+        } else {
+            student.setGrant(student.getGrant() + grantsResponseDto.getGrant());
+        }
+        studentRepository.save(student);
     }
 
 

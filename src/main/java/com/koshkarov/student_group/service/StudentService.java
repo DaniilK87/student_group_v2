@@ -2,6 +2,8 @@ package com.koshkarov.student_group.service;
 
 
 
+import com.koshkarov.student_group.dto.GrantsResponseDto;
+import com.koshkarov.student_group.dto.RatingResponseDTO;
 import com.koshkarov.student_group.dto.StudentResponseDto;
 
 
@@ -17,4 +19,8 @@ public interface StudentService {
     List<StudentResponseDto> getStudentByName(String name);
 
     List<StudentResponseDto> getAllStudentsByGroup(int groupId);
+
+    RatingResponseDTO getRating(int id);
+
+    void getMoney(GrantsResponseDto grantsResponseDto, int id);
 }

@@ -1,9 +1,8 @@
 package com.koshkarov.student_group.service;
 
-import com.koshkarov.student_group.dao.GroupRepository;
-import com.koshkarov.student_group.dao.StudentRepository;
+import com.koshkarov.student_group.repo.GroupRepository;
+import com.koshkarov.student_group.repo.StudentRepository;
 import com.koshkarov.student_group.dto.GroupResponseDto;
-import com.koshkarov.student_group.dto.StudentRequestDto;
 import com.koshkarov.student_group.entity.Group;
 import com.koshkarov.student_group.entity.Student;
 import org.junit.jupiter.api.*;

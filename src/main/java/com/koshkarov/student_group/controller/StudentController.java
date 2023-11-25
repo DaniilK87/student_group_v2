@@ -1,5 +1,7 @@
 package com.koshkarov.student_group.controller;
 
+import com.koshkarov.student_group.dto.GrantsResponseDto;
+import com.koshkarov.student_group.dto.RatingResponseDTO;
 import com.koshkarov.student_group.dto.StudentResponseDto;
 import com.koshkarov.student_group.service.StudentService;
 import lombok.AllArgsConstructor;
@@ -36,4 +38,15 @@ public class StudentController {
     public List<StudentResponseDto> getAllStudentsByGroup(@PathVariable int groupId) {
         return studentService.getAllStudentsByGroup(groupId);
     }
+
+    @GetMapping("/groups/student/rating/{studentId}")
+    public RatingResponseDTO getRating(@PathVariable int studentId) {
+        return studentService.getRating(studentId);
+    }
+
+    @PostMapping("/groups/student/grants/{studentId}")
+    public void getMoney(@RequestBody GrantsResponseDto grantsResponseDto, @PathVariable int studentId) {
+        studentService.getMoney(grantsResponseDto,studentId);
+    }
+
 }

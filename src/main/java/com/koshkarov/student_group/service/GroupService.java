@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface GroupService {
 
-    public List<GroupResponseDto> getAllGroup();
+    List<GroupResponseDto> getAllGroup();
 
-    public void addNewGroup(AddGroupRequestDto addGroupRequestDto);
+    void addNewGroup(AddGroupRequestDto addGroupRequestDto);
 
 
     void deleteGroup(int groupId);

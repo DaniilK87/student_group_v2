@@ -10,8 +10,8 @@ import javax.persistence.*;
 public class Student {
 
     @Id
-    @Column(name = "student_id")
-    @GeneratedValue
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "accept_date")
@@ -20,9 +20,15 @@ public class Student {
     @Column(name = "student_fio")
     private String studentFIO;
 
+    @Column(name = "grants")
+    private Integer grant;
+
+    @Column(name = "rating")
+    private Integer rating;
+
 
     @ManyToOne()
-    @JoinColumn(name = "fk_group_id")
+    @JoinColumn(name = "group_id")
     private Group group;
 
 
