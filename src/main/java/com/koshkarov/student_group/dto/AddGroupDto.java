@@ -7,9 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class GroupResponseDto {
+public class AddGroupDto {
 
-    private Integer id;
     private String groupNumber;
-    private int studentCount;
+
 }

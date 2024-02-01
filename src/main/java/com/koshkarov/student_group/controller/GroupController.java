@@ -3,8 +3,8 @@ package com.koshkarov.student_group.controller;
 
 import com.koshkarov.student_group.dto.*;
 import com.koshkarov.student_group.service.GroupService;
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,32 +12,32 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 @Data
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class GroupController {
 
 
-    private GroupService groupService;
+    private final GroupService groupService;
 
     @PostMapping("/groups")
-    public void addNewGroup(@RequestBody AddGroupRequestDto addGroupRequestDto) {
-        groupService.addNewGroup(addGroupRequestDto);
+    public void addNewGroup(@RequestBody AddGroupDto addGroupDto) {
+        groupService.addNewGroup(addGroupDto);
     }
 
     @GetMapping("/groups")
-    public List<GroupResponseDto> getAllGroups() {
+    public List<GroupDto> getAllGroups() {
         return groupService.getAllGroup();
     }
 
     @PostMapping("/groups/{groupId}")
-    public void addStudent(@RequestBody AddStudentRequestDto addStudentRequestDto,
+    public void addStudent(@RequestBody AddStudentDto addStudentDto,
                            @PathVariable int groupId) {
-        groupService.addStudent(addStudentRequestDto, groupId);
+        groupService.addStudent(addStudentDto, groupId);
     }
 
 
     @PutMapping("/groups/{groupId}")
-    public void editGroup(@RequestBody StudentRequestDto studentRequestDto, @PathVariable int groupId) {
-       groupService.editGroup(studentRequestDto, groupId);
+    public void editGroup(@RequestBody StudentDto studentDto, @PathVariable int groupId) {
+       groupService.editGroup(studentDto, groupId);
     }
 
     @DeleteMapping("/groups/{groupId}")
@@ -47,7 +47,7 @@ public class GroupController {
 
 
     @GetMapping("/groups/{groupId}")
-    private GroupResponseDto getGroupById(@PathVariable int groupId) {
+    private GroupDto getGroupById(@PathVariable int groupId) {
        return groupService.getGroupById(groupId);
     }
 

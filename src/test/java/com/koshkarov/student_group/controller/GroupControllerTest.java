@@ -1,9 +1,9 @@
 package com.koshkarov.student_group.controller;
 
-import com.koshkarov.student_group.dto.AddGroupRequestDto;
-import com.koshkarov.student_group.dto.AddStudentRequestDto;
-import com.koshkarov.student_group.dto.GroupResponseDto;
-import com.koshkarov.student_group.dto.StudentRequestDto;
+import com.koshkarov.student_group.dto.AddGroupDto;
+import com.koshkarov.student_group.dto.AddStudentDto;
+import com.koshkarov.student_group.dto.GroupDto;
+import com.koshkarov.student_group.dto.StudentDto;
 import com.koshkarov.student_group.service.GroupService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -30,26 +30,26 @@ class GroupControllerTest {
 
     @Test
     void addNewGroup() {
-        AddGroupRequestDto addGroup = Mockito.mock(AddGroupRequestDto.class);
+        AddGroupDto addGroup = Mockito.mock(AddGroupDto.class);
         groupController.addNewGroup(addGroup);
         verify(groupService).addNewGroup(addGroup);
     }
 
     @Test
     void getAllGroups()  {
-        List<GroupResponseDto> groupList = new ArrayList<>();
-        groupList.add(Mockito.mock(GroupResponseDto.class));
-        groupList.add(Mockito.mock(GroupResponseDto.class));
+        List<GroupDto> groupList = new ArrayList<>();
+        groupList.add(Mockito.mock(GroupDto.class));
+        groupList.add(Mockito.mock(GroupDto.class));
 
         when(groupService.getAllGroup()).thenReturn(groupList);
-        List<GroupResponseDto> groups = groupController.getAllGroups();
+        List<GroupDto> groups = groupController.getAllGroups();
         verify(groupService).getAllGroup();
         Assertions.assertNotNull(groups);
     }
 
     @Test
     void addStudent() {
-        AddStudentRequestDto addStudent = Mockito.mock(AddStudentRequestDto.class);
+        AddStudentDto addStudent = Mockito.mock(AddStudentDto.class);
         int id = 1;
         groupController.addStudent(addStudent,id);
         verify(groupService).addStudent(addStudent,id);
@@ -57,7 +57,7 @@ class GroupControllerTest {
 
     @Test
     void editGroup() {
-        StudentRequestDto requestDto = Mockito.mock(StudentRequestDto.class);
+        StudentDto requestDto = Mockito.mock(StudentDto.class);
         int id = 1;
         groupController.editGroup(requestDto,id);
         verify(groupService).editGroup(requestDto,id);

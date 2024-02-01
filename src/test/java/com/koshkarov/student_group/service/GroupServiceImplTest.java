@@ -2,7 +2,7 @@ package com.koshkarov.student_group.service;
 
 import com.koshkarov.student_group.repo.GroupRepository;
 import com.koshkarov.student_group.repo.StudentRepository;
-import com.koshkarov.student_group.dto.GroupResponseDto;
+import com.koshkarov.student_group.dto.GroupDto;
 import com.koshkarov.student_group.entity.Group;
 import com.koshkarov.student_group.entity.Student;
 import org.junit.jupiter.api.*;
@@ -39,7 +39,7 @@ class GroupServiceImplTest {
         groupList.add(Mockito.mock(Group.class));
 
         when(groupRepository.findAll()).thenReturn(groupList);
-        List<GroupResponseDto> groups = groupService.getAllGroup();
+        List<GroupDto> groups = groupService.getAllGroup();
 
         assertNotNull(groups);
         assertEquals(2,groups.size());
@@ -85,9 +85,9 @@ class GroupServiceImplTest {
 
     @Test
     void getGroupById() {
-        GroupResponseDto groupResponseDto = Mockito.mock(GroupResponseDto.class);
-        groupResponseDto.setId(1);
-        Optional<Group> group = groupRepository.findById(groupResponseDto.getId());
+        GroupDto groupDto = Mockito.mock(GroupDto.class);
+        groupDto.setId(1);
+        Optional<Group> group = groupRepository.findById(groupDto.getId());
         assertNotNull(group);
     }
 

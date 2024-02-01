@@ -1,17 +1,16 @@
 package com.koshkarov.student_group.dto;
 
+
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class AddStudentRequestDto {
+@NoArgsConstructor
+public class GrantsDto {
 
-    private Integer id;
-    private String studentFIO;
-    private String acceptDate;
+    private int grant;
 
 }

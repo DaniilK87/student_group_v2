@@ -6,16 +6,16 @@ import java.util.List;
 
 public interface GroupService {
 
-    List<GroupResponseDto> getAllGroup();
+    List<GroupDto> getAllGroup();
 
-    void addNewGroup(AddGroupRequestDto addGroupRequestDto);
+    void addNewGroup(AddGroupDto addGroupDto);
 
 
     void deleteGroup(int groupId);
 
-    GroupResponseDto getGroupById(int groupId);
+    GroupDto getGroupById(int groupId);
 
-    void addStudent(AddStudentRequestDto addStudentRequestDto, int groupId);
+    void addStudent(AddStudentDto addStudentDto, int groupId);
 
-    void editGroup (StudentRequestDto studentRequestDto, int groupId);
+    void editGroup (StudentDto studentDto, int groupId);
 }

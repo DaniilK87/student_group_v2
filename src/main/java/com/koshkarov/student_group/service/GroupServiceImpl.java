@@ -5,44 +5,43 @@ import com.koshkarov.student_group.repo.StudentRepository;
 import com.koshkarov.student_group.dto.*;
 import com.koshkarov.student_group.entity.Group;
 import com.koshkarov.student_group.entity.Student;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class GroupServiceImpl implements GroupService{
-    @Autowired
-    private GroupRepository groupRepository;
-    @Autowired
-    private StudentRepository studentRepository;
+
+    private final GroupRepository groupRepository;
+    private final StudentRepository studentRepository;
 
     @Override
-    public List<GroupResponseDto> getAllGroup() {
+    public List<GroupDto> getAllGroup() {
         List<Group> groups = groupRepository.findAll();
-        List<GroupResponseDto> collect = groups.stream()
+        List<GroupDto> collect = groups.stream()
                 .map(group -> {
-                    GroupResponseDto groupResponseDto = new GroupResponseDto();
-                    groupResponseDto.setId(group.getId());
-                    groupResponseDto.setGroupNumber(group.getGroupNumber());
-                    groupResponseDto.setStudentCount(group.getStudents().size());
-                    return groupResponseDto;
+                    GroupDto groupDto = new GroupDto();
+                    groupDto.setId(group.getId());
+                    groupDto.setGroupNumber(group.getGroupNumber());
+                    groupDto.setStudentCount(group.getStudents().size());
+                    return groupDto;
                 }).collect(Collectors.toList());
         return collect;
     }
 
 
     @Override
-    public void addNewGroup(AddGroupRequestDto addGroupRequestDto) {
+    public void addNewGroup(AddGroupDto addGroupDto) {
             Group group = new Group();
-            group.setGroupNumber(addGroupRequestDto.getGroupNumber());
+            group.setGroupNumber(addGroupDto.getGroupNumber());
             groupRepository.save(group);
     }
 
     @Override
-    public void addStudent(AddStudentRequestDto addStudentRequestDto, int groupId) {
+    public void addStudent(AddStudentDto addStudentDto, int groupId) {
         Student student = new Student();
         LocalDate date = LocalDate.now();
 
@@ -51,9 +50,9 @@ public class GroupServiceImpl implements GroupService{
         Group group = groupRepository.findById(id.getId())
                 .orElseThrow(() -> new IllegalStateException("group has not been founded"));
 
-        student.setId(addStudentRequestDto.getId());
-        student.setAcceptDate(addStudentRequestDto.getAcceptDate());
-        student.setStudentFIO(addStudentRequestDto.getStudentFIO());
+        student.setId(addStudentDto.getId());
+        student.setAcceptDate(addStudentDto.getAcceptDate());
+        student.setStudentFIO(addStudentDto.getStudentFIO());
 
         if (group.getStudents().size() != 0) {
             group.setStudentCount(group.getStudents().size() + 1);
@@ -68,16 +67,16 @@ public class GroupServiceImpl implements GroupService{
 
 
     @Override
-    public void editGroup(StudentRequestDto studentRequestDto, int groupId) {
+    public void editGroup(StudentDto studentDto, int groupId) {
 
         List<Student> getList = studentRepository.getStudentsByGroup_Id(groupId);
 
         Student student = getList.stream().findFirst()
                 .orElseThrow(() -> new IllegalStateException("student has not been founded"));
 
-        student.setId(studentRequestDto.getId());
-        student.setAcceptDate(studentRequestDto.getAcceptDate());
-        student.setStudentFIO(studentRequestDto.getStudentFIO());
+        student.setId(studentDto.getId());
+        student.setAcceptDate(studentDto.getAcceptDate());
+        student.setStudentFIO(studentDto.getStudentFIO());
 
         studentRepository.save(student);
     }
@@ -88,13 +87,13 @@ public class GroupServiceImpl implements GroupService{
     }
 
     @Override
-    public GroupResponseDto getGroupById(int groupId) {
+    public GroupDto getGroupById(int groupId) {
         Group group = groupRepository.getReferenceById(groupId);
-        GroupResponseDto groupResponseDto = new GroupResponseDto();
-        groupResponseDto.setId(group.getId());
-        groupResponseDto.setGroupNumber(group.getGroupNumber());
-        groupResponseDto.setStudentCount(group.getStudents().size());
-        return groupResponseDto;
+        GroupDto groupDto = new GroupDto();
+        groupDto.setId(group.getId());
+        groupDto.setGroupNumber(group.getGroupNumber());
+        groupDto.setStudentCount(group.getStudents().size());
+        return groupDto;
     }
 
 

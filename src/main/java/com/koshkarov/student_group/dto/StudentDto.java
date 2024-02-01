@@ -5,10 +5,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class AddGroupRequestDto {
+@NoArgsConstructor
+public class StudentDto {
 
-    private String groupNumber;
-
+    private Integer id;
+    private String acceptDate;
+    private String studentFIO;
 }

@@ -1,22 +1,22 @@
 package com.koshkarov.student_group.controller;
 
-import com.koshkarov.student_group.dto.GrantsResponseDto;
-import com.koshkarov.student_group.dto.RatingResponseDTO;
-import com.koshkarov.student_group.dto.StudentResponseDto;
+import com.koshkarov.student_group.dto.GrantsDto;
+import com.koshkarov.student_group.dto.RatingDTO;
+import com.koshkarov.student_group.dto.StudentDto;
 import com.koshkarov.student_group.service.StudentService;
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Data
 public class StudentController {
 
-    private StudentService studentService;
+    private final StudentService studentService;
 
     @DeleteMapping("/groups/students/{id}")
     public String deleteStudent(@PathVariable int id){
@@ -25,28 +25,28 @@ public class StudentController {
     }
 
     @GetMapping("/groups/students")
-    private List<StudentResponseDto> getAllStudent() {
+    private List<StudentDto> getAllStudent() {
         return studentService.getAllStudent();
     }
 
     @GetMapping("/groups/students/{name}")
-    public List<StudentResponseDto> getStudentByName(@PathVariable String name){
+    public List<StudentDto> getStudentByName(@PathVariable String name){
         return studentService.getStudentByName(name);
     }
 
     @GetMapping("/groups/allStudents/{groupId}")
-    public List<StudentResponseDto> getAllStudentsByGroup(@PathVariable int groupId) {
+    public List<StudentDto> getAllStudentsByGroup(@PathVariable int groupId) {
         return studentService.getAllStudentsByGroup(groupId);
     }
 
     @GetMapping("/groups/student/rating/{studentId}")
-    public RatingResponseDTO getRating(@PathVariable int studentId) {
+    public RatingDTO getRating(@PathVariable int studentId) {
         return studentService.getRating(studentId);
     }
 
     @PostMapping("/groups/student/grants/{studentId}")
-    public void getMoney(@RequestBody GrantsResponseDto grantsResponseDto, @PathVariable int studentId) {
-        studentService.getMoney(grantsResponseDto,studentId);
+    public void getMoney(@RequestBody GrantsDto grantsDto, @PathVariable int studentId) {
+        studentService.getMoney(grantsDto,studentId);
     }
 
 }

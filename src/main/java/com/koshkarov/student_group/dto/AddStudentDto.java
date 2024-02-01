@@ -4,10 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RatingResponseDTO {
+public class AddStudentDto {
+
     private Integer id;
-    private Integer rating;
+    private String studentFIO;
+    private String acceptDate;
+
 }

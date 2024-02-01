@@ -1,10 +1,8 @@
 package com.koshkarov.student_group.service;
 
-
-
-import com.koshkarov.student_group.dto.GrantsResponseDto;
-import com.koshkarov.student_group.dto.RatingResponseDTO;
-import com.koshkarov.student_group.dto.StudentResponseDto;
+import com.koshkarov.student_group.dto.GrantsDto;
+import com.koshkarov.student_group.dto.RatingDTO;
+import com.koshkarov.student_group.dto.StudentDto;
 
 
 import java.util.List;
@@ -14,13 +12,13 @@ public interface StudentService {
 
     public String deleteStudent(int id);
 
-    List<StudentResponseDto> getAllStudent();
+    List<StudentDto> getAllStudent();
 
-    List<StudentResponseDto> getStudentByName(String name);
+    List<StudentDto> getStudentByName(String name);
 
-    List<StudentResponseDto> getAllStudentsByGroup(int groupId);
+    List<StudentDto> getAllStudentsByGroup(int groupId);
 
-    RatingResponseDTO getRating(int id);
+    RatingDTO getRating(int id);
 
-    void getMoney(GrantsResponseDto grantsResponseDto, int id);
+    void getMoney(GrantsDto grantsDto, int id);
 }
