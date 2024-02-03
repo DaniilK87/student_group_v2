@@ -55,11 +55,4 @@ class GroupControllerTest {
         verify(groupService).addStudent(addStudent,id);
     }
 
-    @Test
-    void editGroup() {
-        StudentDto requestDto = Mockito.mock(StudentDto.class);
-        int id = 1;
-        groupController.editGroup(requestDto,id);
-        verify(groupService).editGroup(requestDto,id);
-    }
 }

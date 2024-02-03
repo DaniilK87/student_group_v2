@@ -1,8 +1,6 @@
 package com.koshkarov.student_group.service;
 
-import com.koshkarov.student_group.dto.GrantsDto;
-import com.koshkarov.student_group.dto.RatingDTO;
-import com.koshkarov.student_group.dto.StudentDto;
+import com.koshkarov.student_group.dto.*;
 
 
 import java.util.List;
@@ -10,7 +8,7 @@ import java.util.List;
 public interface StudentService {
 
 
-    public String deleteStudent(int id);
+    public String deleteStudent(int studentId);
 
     List<StudentDto> getAllStudent();
 
@@ -18,7 +16,11 @@ public interface StudentService {
 
     List<StudentDto> getAllStudentsByGroup(int groupId);
 
-    RatingDTO getRating(int id);
+    RatingDTO getRating(int studentId);
 
-    void getMoney(GrantsDto grantsDto, int id);
+    void getMoney(GrantsDto grantsDto, int studentId);
+
+
+    void editStudent(EditStudentDto editStudentDto, int studentId);
+
 }

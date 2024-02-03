@@ -1,5 +1,7 @@
 package com.koshkarov.student_group.service;
 
+import com.koshkarov.student_group.exception_handling.GDNException;
+import com.koshkarov.student_group.exception_handling.NoSuchGroupException;
 import com.koshkarov.student_group.repo.GroupRepository;
 import com.koshkarov.student_group.repo.StudentRepository;
 import com.koshkarov.student_group.dto.*;
@@ -32,7 +34,6 @@ public class GroupServiceImpl implements GroupService{
         return collect;
     }
 
-
     @Override
     public void addNewGroup(AddGroupDto addGroupDto) {
             Group group = new Group();
@@ -45,10 +46,8 @@ public class GroupServiceImpl implements GroupService{
         Student student = new Student();
         LocalDate date = LocalDate.now();
 
-        Group id = groupRepository.getReferenceById(groupId);
-
-        Group group = groupRepository.findById(id.getId())
-                .orElseThrow(() -> new IllegalStateException("group has not been founded"));
+        Group group = groupRepository.findById(groupId)
+                .orElseThrow(() -> new NoSuchGroupException("группы с таким id нет"));
 
         student.setId(addStudentDto.getId());
         student.setAcceptDate(addStudentDto.getAcceptDate());
@@ -59,7 +58,6 @@ public class GroupServiceImpl implements GroupService{
         } else {
             group.setStudentCount(1);
         }
-
         student.setAcceptDate(date.toString());
         student.setGroup(group);
         studentRepository.save(student);
@@ -67,34 +65,28 @@ public class GroupServiceImpl implements GroupService{
 
 
     @Override
-    public void editGroup(StudentDto studentDto, int groupId) {
-
-        List<Student> getList = studentRepository.getStudentsByGroup_Id(groupId);
-
-        Student student = getList.stream().findFirst()
-                .orElseThrow(() -> new IllegalStateException("student has not been founded"));
-
-        student.setId(studentDto.getId());
-        student.setAcceptDate(studentDto.getAcceptDate());
-        student.setStudentFIO(studentDto.getStudentFIO());
-
-        studentRepository.save(student);
-    }
-
-    @Override
     public void deleteGroup(int groupId) {
-        groupRepository.deleteById(groupId);
+        try {
+            Group group = groupRepository.findById(groupId)
+                    .orElseThrow(() -> new NoSuchGroupException("группы с таким id нет"));
+            groupRepository.delete(group);
+        } catch (RuntimeException e) {
+            throw new GDNException("удаление не возможно, в данной группе есть студенты, " +
+                    "удадите студентов из группы и повторите запрос");
+        }
+
     }
 
     @Override
-    public GroupDto getGroupById(int groupId) {
-        Group group = groupRepository.getReferenceById(groupId);
+    public GroupDto getGroupById(int groupId)  {
+        Group id = groupRepository.getReferenceById(groupId);
+        Group group = groupRepository.findById(id.getId())
+                .orElseThrow(() -> new NoSuchGroupException("группы с таким id нет"));
+
         GroupDto groupDto = new GroupDto();
         groupDto.setId(group.getId());
         groupDto.setGroupNumber(group.getGroupNumber());
         groupDto.setStudentCount(group.getStudents().size());
         return groupDto;
     }
-
-
 }

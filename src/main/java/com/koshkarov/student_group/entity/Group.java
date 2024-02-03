@@ -21,8 +21,10 @@ public class Group {
     @Column(name = "student_count")
     private int studentCount;
 
-    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
+    @OneToMany(cascade = {CascadeType.REFRESH,CascadeType.MERGE,
+            CascadeType.PERSIST}, mappedBy = "group")
     private List<Student> students;
 
+//    orphanRemoval = true
 
 }

@@ -1,14 +1,15 @@
 package com.koshkarov.student_group.service;
 
-import com.koshkarov.student_group.dto.StudentDto;
+import com.koshkarov.student_group.dto.*;
+import com.koshkarov.student_group.exception_handling.NoSuchGroupException;
+import com.koshkarov.student_group.exception_handling.NoSuchStudentException;
 import com.koshkarov.student_group.repo.GroupRepository;
 import com.koshkarov.student_group.repo.StudentRepository;
-import com.koshkarov.student_group.dto.GrantsDto;
-import com.koshkarov.student_group.dto.RatingDTO;
 import com.koshkarov.student_group.entity.Group;
 import com.koshkarov.student_group.entity.Student;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -52,7 +53,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<StudentDto> getAllStudentsByGroup(int groupId) {
-        List<Student> students = studentRepository.getStudentsByGroup_Id(groupId);
+        Group group = groupRepository.findById(groupId)
+                .orElseThrow(() -> new NoSuchGroupException("группы с таким id нет"));
+        List<Student> students = studentRepository.getStudentsByGroup_Id(group.getId());
         List<StudentDto> collect = students.stream()
                 .map(student -> {
                     StudentDto studentDto = new StudentDto();
@@ -65,8 +68,9 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public RatingDTO getRating(int id) {
-        Student student = studentRepository.getReferenceById(id);
+    public RatingDTO getRating(int studentId) {
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(() -> new NoSuchStudentException("студента с таким id не существует"));
         RatingDTO ratingDTO = new RatingDTO();
         ratingDTO.setId(student.getId());
         ratingDTO.setRating(student.getRating());
@@ -74,8 +78,9 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void getMoney(GrantsDto grantsDto, int id) {
-        Student student = studentRepository.getReferenceById(id);
+    public void getMoney(GrantsDto grantsDto, int studentId) {
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(() -> new NoSuchStudentException("студента с таким id не существует"));
         if (student.getGrant() == null) {
             student.setGrant(grantsDto.getGrant());
             studentRepository.save(student);
@@ -85,14 +90,22 @@ public class StudentServiceImpl implements StudentService {
         studentRepository.save(student);
     }
 
+    @Override
+    public void editStudent(EditStudentDto editStudentDto, int studentId) {
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(() -> new NoSuchStudentException("студента с таким id не существует"));
+        student.setAcceptDate(editStudentDto.getAcceptDate());
+        student.setStudentFIO(editStudentDto.getStudentFIO());
+        studentRepository.save(student);
+    }
 
     @Override
-    public String deleteStudent(int id) {
-        Student student = studentRepository.getReferenceById(id);
+    public String deleteStudent(int studentId) {
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(() -> new NoSuchStudentException("студента с таким id не существует"));
+        studentRepository.deleteById(studentId);
         Group group = groupRepository.getReferenceById(student.getGroup().getId());
         group.setStudentCount(group.getStudents().size() - 1);
-
-        studentRepository.delete(student);
-        return "Student with ID = " + id + "delete";
+        return "Student with ID = " + studentId + " delete";
     }
 }

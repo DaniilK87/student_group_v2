@@ -17,5 +17,4 @@ public interface GroupService {
 
     void addStudent(AddStudentDto addStudentDto, int groupId);
 
-    void editGroup (StudentDto studentDto, int groupId);
 }
