@@ -27,7 +27,7 @@ public class Student {
     private Integer rating;
 
     @ManyToOne(cascade = {CascadeType.REFRESH,CascadeType.MERGE,
-            CascadeType.PERSIST}, fetch = FetchType.LAZY)
+            CascadeType.PERSIST})
     @JoinColumn(name = "group_id")
     private Group group;
 

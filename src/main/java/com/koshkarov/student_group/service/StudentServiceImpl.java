@@ -96,6 +96,7 @@ public class StudentServiceImpl implements StudentService {
                 .orElseThrow(() -> new NoSuchStudentException("студента с таким id не существует"));
         student.setAcceptDate(editStudentDto.getAcceptDate());
         student.setStudentFIO(editStudentDto.getStudentFIO());
+        student.setRating(editStudentDto.getRating());
         studentRepository.save(student);
     }
 

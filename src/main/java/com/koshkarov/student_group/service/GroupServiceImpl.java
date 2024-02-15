@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class GroupServiceImpl implements GroupService{
 
+    //Добавить логгирование
     private final GroupRepository groupRepository;
     private final StudentRepository studentRepository;
 

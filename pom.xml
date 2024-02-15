@@ -15,6 +15,8 @@
     <description>student_group</description>
     <properties>
         <java.version>11</java.version>
+        <swagger.version>2.9.2</swagger.version>
+        <jetbrains_annotations.version>24.0.1</jetbrains_annotations.version>
     </properties>
     <dependencies>
         <dependency>
@@ -24,10 +26,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
@@ -59,11 +57,31 @@
             <artifactId>liquibase-core</artifactId>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools -->
+        <!-- при внесении изменений в код автоматически перезапускает приложение -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${swagger.version}</version>
+            <scope>compile</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
-            <version>RELEASE</version>
+            <version>${jetbrains_annotations.version}</version>
             <scope>compile</scope>
         </dependency>
 
@@ -86,5 +104,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

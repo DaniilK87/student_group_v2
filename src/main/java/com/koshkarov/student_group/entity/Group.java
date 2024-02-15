@@ -22,9 +22,7 @@ public class Group {
     private int studentCount;
 
     @OneToMany(cascade = {CascadeType.REFRESH,CascadeType.MERGE,
-            CascadeType.PERSIST}, mappedBy = "group")
+            CascadeType.PERSIST}, mappedBy = "group", fetch = FetchType.EAGER)
     private List<Student> students;
-
-//    orphanRemoval = true
 
 }

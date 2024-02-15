@@ -11,4 +11,5 @@ public class EditStudentDto {
 
     private String studentFIO;
     private String acceptDate;
+    private Integer rating;
 }
